@@ -34,11 +34,16 @@ class DataTransformation:
         try:
 
             numerical_columns = [
-                # Add numerical columns after checking dataset
+                "km_driven",
+                "car_age"
             ]
 
             categorical_columns = [
-                # Add categorical columns after checking dataset
+                "fuel",
+                "seller_type",
+                "transmission",
+                "owner",
+                "brand"
             ]
 
             num_pipeline = Pipeline(
@@ -51,7 +56,7 @@ class DataTransformation:
             cat_pipeline = Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
-                    ("one_hot_encoder", OneHotEncoder()),
+                    ("one_hot_encoder", OneHotEncoder(handle_unknown='ignore', sparse_output=False)),
                     ("scaler", StandardScaler(with_mean=False))
                 ]
             )
@@ -107,6 +112,15 @@ class DataTransformation:
             input_feature_test_arr = preprocessing_obj.transform(
                 input_feature_test_df
             )
+
+            # print(type(input_feature_train_arr))
+            # print(type(input_feature_test_arr))
+
+            # print("input_feature_train_arr:", input_feature_train_arr.shape)
+            # print("target_feature_train_df:", target_feature_train_df.shape)
+
+            # print("input_feature_test_arr:", input_feature_test_arr.shape)
+            # print("target_feature_test_df:", target_feature_test_df.shape)
 
             train_arr = np.c_[
                 input_feature_train_arr,

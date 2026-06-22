@@ -26,7 +26,7 @@ class DataIngestion:
 
         try:
             
-            df = pd.read_csv("notebook/data/Car_Dataset.csv")
+            df = pd.read_csv("notebook/data/clean_car_data.csv")
 
             logging.info("Read the dataset as dataframe")
 

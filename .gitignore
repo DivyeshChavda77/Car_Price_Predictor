@@ -3,6 +3,8 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+catboost_info/
+
 # C extensions
 *.so
 

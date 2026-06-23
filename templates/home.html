@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Car Price Predictor</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #0f172a;
+        color: white;
+      }
+
+      .hero {
+        height: 40vh;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+          url("https://images.unsplash.com/photo-1503376780353-7e6692767b70");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 55px;
+        font-weight: 700;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+        color: #d1d5db;
+      }
+
+      .main-container {
+        width: 90%;
+        max-width: 1300px;
+        margin: -70px auto 40px;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 25px;
+      }
+
+      .form-card,
+      .result-card {
+        background: #111827;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      .form-card h2,
+      .result-card h2 {
+        margin-bottom: 25px;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-bottom: 8px;
+        color: #d1d5db;
+      }
+
+      input,
+      select {
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: #1f2937;
+        color: white;
+        font-size: 14px;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border: 1px solid #3b82f6;
+      }
+
+      .predict-btn {
+        width: 100%;
+        margin-top: 25px;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        background: #ef4444;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .predict-btn:hover {
+        background: #dc2626;
+      }
+
+      .price-card {
+        text-align: center;
+        margin-top: 30px;
+      }
+
+      .price {
+        font-size: 42px;
+        font-weight: 700;
+        color: #22c55e;
+      }
+
+      .metric {
+        margin-top: 20px;
+        background: #1f2937;
+        padding: 15px;
+        border-radius: 12px;
+      }
+
+      .metric h3 {
+        margin-bottom: 8px;
+      }
+
+      .footer-info {
+        margin-top: 20px;
+        color: #9ca3af;
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .dashboard {
+          grid-template-columns: 1fr;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-content h1 {
+          font-size: 38px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>🚗 Car Price Predictor</h1>
+
+        <p>Predict Used Car Resale Value Using Machine Learning</p>
+      </div>
+    </section>
+
+    <div class="main-container">
+      <div class="dashboard">
+        <div class="form-card">
+          <h2>Vehicle Details</h2>
+
+          <form action="/predict" method="POST">
+            <div class="form-grid">
+              <div class="input-group">
+                <label>KM Driven</label>
+                <input type="number" name="km_driven" required />
+              </div>
+
+              <div class="input-group">
+                <label>Car Age</label>
+                <input type="number" name="car_age" required />
+              </div>
+
+              <div class="input-group">
+                <label>Fuel Type</label>
+                <select name="fuel">
+                  <option>Petrol</option>
+                  <option>Diesel</option>
+                  <option>CNG</option>
+                  <option>LPG</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Transmission</label>
+                <select name="transmission">
+                  <option>Manual</option>
+                  <option>Automatic</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Seller Type</label>
+                <select name="seller_type">
+                  <option>Individual</option>
+                  <option>Dealer</option>
+                  <option>Trustmark Dealer</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Owner</label>
+                <select name="owner">
+                  <option>First Owner</option>
+                  <option>Second Owner</option>
+                  <option>Third Owner</option>
+                  <option>Fourth & Above Owner</option>
+                  <option>Test Drive Car</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Brand</label>
+                <select name="brand">
+                  <option>Maruti</option>
+                  <option>Hyundai</option>
+                  <option>Honda</option>
+                  <option>Tata</option>
+                  <option>Mahindra</option>
+                  <option>Toyota</option>
+                  <option>Ford</option>
+                  <option>Renault</option>
+                  <option>Volkswagen</option>
+                  <option>Chevrolet</option>
+                  <option>Nissan</option>
+                  <option>Skoda</option>
+                  <option>Audi</option>
+                  <option>BMW</option>
+                  <option>Mercedes-Benz</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="predict-btn">Predict Price</button>
+          </form>
+        </div>
+
+        <div class="result-card">
+          <h2>Prediction Result</h2>
+
+          <div class="price-card">
+            {% if results %}
+
+            <div class="price">₹ {{ results }}</div>
+
+            {% else %}
+
+            <div class="price">₹ --</div>
+
+            {% endif %}
+          </div>
+
+          <div class="metric">
+            <h3>Model</h3>
+            <p>CatBoost Regressor</p>
+          </div>
+
+          <div class="metric">
+            <h3>Accuracy</h3>
+            <p>R² Score: 0.81</p>
+          </div>
+
+          <div class="metric">
+            <h3>Features Used</h3>
+            <p>Brand, Fuel, KM Driven, Owner, Transmission, Car Age</p>
+          </div>
+
+          <div class="footer-info">
+            Built with Flask + CatBoost + Scikit-Learn
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

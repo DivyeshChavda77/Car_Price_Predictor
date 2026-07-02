@@ -4,6 +4,479 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <title>AI Car Price Predictor</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #0f172a;
+        color: white;
+      }
+
+      /* Hero Section */
+
+      .hero {
+        height: 40vh;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+          url("https://images.unsplash.com/photo-1503376780353-7e6692767b70");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 55px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+        color: #d1d5db;
+      }
+
+      /* Main Container */
+
+      .main-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: -70px auto 50px;
+      }
+
+      /* Dashboard */
+
+      .dashboard {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      /* Cards */
+
+      .form-card,
+      .result-card {
+        width: 100%;
+        background: #111827;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .form-card h2,
+      .result-card h2 {
+        margin-bottom: 25px;
+        font-size: 28px;
+      }
+
+      /* Form */
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-bottom: 8px;
+        color: #d1d5db;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: #1f2937;
+        color: white;
+        font-size: 15px;
+        transition: 0.3s;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border: 1px solid #3b82f6;
+        background: #263242;
+      }
+
+      /* Button */
+
+      .predict-btn {
+        width: 100%;
+        margin-top: 30px;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        background: #ef4444;
+        color: white;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .predict-btn:hover {
+        background: #dc2626;
+        transform: translateY(-2px);
+      }
+
+      /* Result */
+
+      /* =======================================================
+   Vehicle Details Dashboard
+======================================================= */
+
+      .vehicle-summary {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        background: #1f2937;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+
+        padding: 14px 18px;
+
+        transition: all 0.3s ease;
+      }
+
+      .summary-row:hover {
+        transform: translateY(-3px);
+        border-color: #22c55e;
+        box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
+      }
+
+      .summary-row span {
+        color: #9ca3af;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .summary-row strong {
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      /* Better spacing inside result card */
+
+      .result-card .metric {
+        margin-top: 20px;
+      }
+
+      .result-card h3 {
+        margin-bottom: 14px;
+      }
+
+      .price-card {
+        text-align: center;
+        margin: 30px 0;
+      }
+
+      .price {
+        font-size: 48px;
+        font-weight: 700;
+        color: #22c55e;
+      }
+
+      .metric {
+        margin-top: 18px;
+        background: #1f2937;
+        padding: 18px;
+        border-radius: 12px;
+      }
+
+      .metric h3 {
+        margin-bottom: 8px;
+        color: #ffffff;
+      }
+
+      .metric p {
+        color: #d1d5db;
+        line-height: 1.6;
+      }
+
+      .footer-info {
+        margin-top: 25px;
+        text-align: center;
+        color: #9ca3af;
+        font-size: 15px;
+      }
+
+      /* Mobile */
+
+  
+      @media (max-width: 900px) {
+        .hero {
+          height: 35vh;
+        }
+
+        .hero-content h1 {
+          font-size: 38px;
+        }
+
+        .hero-content p {
+          font-size: 16px;
+        }
+
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .main-container {
+          margin-top: -40px;
+        }
+
+        .form-card,
+        .result-card {
+          padding: 20px;
+        }
+
+        .vehicle-summary {
+          grid-template-columns: 1fr;
+        }
+
+        .price {
+          font-size: 36px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Hero Section -->
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>🚗 AI Car Price Predictor</h1>
+        <p>Predict Used Car Resale Value Using Machine Learning</p>
+      </div>
+    </section>
+
+    <!-- Main Container -->
+
+    <div class="main-container">
+      <div class="dashboard">
+        <!-- Vehicle Details -->
+
+        <div class="form-card">
+          <h2>Vehicle Details</h2>
+
+          <form action="/predict" method="POST">
+            <div class="form-grid">
+              <div class="input-group">
+                <label>KM Driven</label>
+                <input
+                  type="number"
+                  name="km_driven"
+                  placeholder="Enter KM Driven"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Car Age</label>
+                <input
+                  type="number"
+                  name="car_age"
+                  placeholder="Enter Car Age"
+                  required
+                />
+              </div>
+
+              <div class="input-group">
+                <label>Fuel Type</label>
+                <select name="fuel" required>
+                  <option value="" selected disabled>Select Fuel Type</option>
+                  <option>Petrol</option>
+                  <option>Diesel</option>
+                  <option>CNG</option>
+                  <!-- <option>LPG</option> -->
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Transmission</label>
+                <select name="transmission" required>
+                  <option value="" selected disabled>
+                    Select Transmission
+                  </option>
+                  <option>Manual</option>
+                  <option>Automatic</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Seller Type</label>
+                <select name="seller_type" required>
+                  <option value="" selected disabled>Select Seller Type</option>
+                  <option>Individual</option>
+                  <option>Dealer</option>
+                  <option>Trustmark Dealer</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Owner</label>
+                <select name="owner" required>
+                  <option value="" selected disabled>Select Owner</option>
+                  <option>First Owner</option>
+                  <option>Second Owner</option>
+                  <option>Third Owner</option>
+                  <option>Fourth & Above Owner</option>
+                  <option>Test Drive Car</option>
+                </select>
+              </div>
+
+              <div class="input-group">
+                <label>Brand</label>
+                <select name="brand" required>
+                  <option value="" selected disabled>Select Car Brand</option>
+                  <option>Maruti</option>
+                  <option>Hyundai</option>
+                  <option>Honda</option>
+                  <option>Tata</option>
+                  <option>Mahindra</option>
+                  <option>Toyota</option>
+                  <option>Ford</option>
+                  <option>Renault</option>
+                  <option>Volkswagen</option>
+                  <option>Chevrolet</option>
+                  <option>Nissan</option>
+                  <option>Skoda</option>
+                  <option>Audi</option>
+                  <option>BMW</option>
+                  <option>Mercedes-Benz</option>
+                </select>
+              </div>
+            </div>
+
+            <button class="predict-btn">🚀 Predict Price</button>
+          </form>
+        </div>
+        <!-- Prediction Result Card -->
+
+        <div class="result-card">
+          <h2>Prediction Result</h2>
+
+          {% if results %}
+          <div class="metric">
+            <h3>🚗 Vehicle Details</h3>
+
+            <div class="vehicle-summary">
+              <div class="summary-row">
+                <span>Brand</span>
+                <strong>{{ brand }}</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Fuel</span>
+                <strong>{{ fuel }}</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>KM Driven</span>
+                <strong>{{ km_driven }}</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Car Age</span>
+                <strong>{{ car_age }} Years</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Transmission</span>
+                <strong>{{ transmission }}</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Seller Type</span>
+                <strong>{{ seller_type }}</strong>
+              </div>
+
+              <div class="summary-row">
+                <span>Owner</span>
+                <strong>{{ owner }}</strong>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          <h3>💰 Estimated Selling Price</h3>
+          <div class="price-card">
+            {% if results %}
+            <div class="price">₹ {{ results }}</div>
+            {% else %}
+            <div class="price">₹ --</div>
+            {% endif %}
+          </div>
+          <div class="metric">
+            <h3>🤖 Model Used</h3>
+            <p>CatBoost Regressor</p>
+          </div>
+          <div class="metric">
+            <h3>📊 Model Accuracy</h3>
+            <p>R² Score : 0.81</p>
+          </div>
+          <div class="metric">
+            <h3>📋 Features Used</h3>
+            <p>
+              Brand, Fuel Type, KM Driven, Car Age, Transmission, Seller Type
+              and Owner
+            </p>
+          </div>
+
+          <div class="footer-info">
+            🚀 Built with Flask • CatBoost • Scikit-Learn • HTML • CSS
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.addEventListener("load", function () {
+        if (performance.navigation.type === 1) {
+          window.location.href = "/";
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Car Price Predictor</title>
 
     <link
@@ -297,4 +770,4 @@
       </div>
     </div>
   </body>
-</html>
+</html> -->

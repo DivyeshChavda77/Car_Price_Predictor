@@ -1,77 +1,47 @@
 from flask import Flask, request, render_template
 
-from src.pipeline.predict_pipeline import (
-    CustomData,
-    PredictPipeline
-)
+from src.pipeline.predict_pipeline import (CustomData,PredictPipeline)
 
 app = Flask(__name__)
-
 
 @app.route("/")
 def index():
     return render_template("home.html")
 
-
 @app.route("/predict", methods=["POST"])
+# @app.route("/predict", methods=["GET", "POST"])
 def predict_datapoint():
 
     try:
 
         data = CustomData(
-
-            km_driven=float(
-                request.form.get("km_driven")
-            ),
-
+            km_driven=float(request.form.get("km_driven")),
             fuel=request.form.get("fuel"),
+            seller_type=request.form.get("seller_type"),
+            transmission=request.form.get("transmission"),
+            owner=request.form.get("owner"),
+            brand=request.form.get("brand"),
+            car_age=int(request.form.get("car_age"))
+        )
 
-            seller_type=request.form.get(
-                "seller_type"
-            ),
+        pred_df = (data.get_data_as_dataframe())
 
-            transmission=request.form.get(
-                "transmission"
-            ),
+        predict_pipeline = (PredictPipeline())
 
-            owner=request.form.get(
-                "owner"
-            ),
+        result = predict_pipeline.predict(pred_df)
 
-            brand=request.form.get(
-                "brand"
-            ),
-
-            car_age=int(
-                request.form.get("car_age")
+        return render_template("home.html",results=round(result[0], 2),
+                brand=request.form.get("brand"),
+                car_age=request.form.get("car_age"),
+                km_driven=request.form.get("km_driven"),
+                fuel=request.form.get("fuel"),
+                seller_type=request.form.get("seller_type"),
+                transmission=request.form.get("transmission"),
+                owner=request.form.get("owner")
             )
-        )
-
-        pred_df = (
-            data.get_data_as_dataframe()
-        )
-
-        predict_pipeline = (
-            PredictPipeline()
-        )
-
-        result = predict_pipeline.predict(
-            pred_df
-        )
-
-        return render_template(
-            "home.html",
-            results=round(result[0], 2)
-        )
 
     except Exception as e:
-
-        return render_template(
-            "home.html",
-            results=str(e)
-        )
-
+        return render_template("home.html",results=str(e))
 
 if __name__ == "__main__":
-
     app.run(host="0.0.0.0")

@@ -24,6 +24,60 @@
         color: white;
       }
 
+      /* ===========================
+   Navbar
+=========================== */
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 70px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        padding: 0 50px;
+
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(12px);
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        z-index: 999;
+      }
+
+      .nav-left {
+        font-size: 30px;
+      }
+
+      .nav-center {
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .github-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 10px;
+        background: #111827;
+        color: #fff;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: 0.3s;
+      }
+
+      .github-btn:hover {
+        background: #24292e;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      }
+
       /* Hero Section */
 
       .hero {
@@ -37,6 +91,7 @@
         align-items: center;
         justify-content: center;
         text-align: center;
+        margin-top: 70px;
       }
 
       .hero-content h1 {
@@ -235,7 +290,6 @@
 
       /* Mobile */
 
-  
       @media (max-width: 900px) {
         .hero {
           height: 35vh;
@@ -270,10 +324,68 @@
           font-size: 36px;
         }
       }
+
+      @media (max-width: 768px) {
+        .navbar {
+          padding: 0 15px;
+        }
+
+        .nav-center {
+          font-size: 18px;
+        }
+
+        .github-btn {
+          padding: 10px 14px;
+          font-size: 13px;
+        }
+
+        .github-btn svg {
+          display: none;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="nav-left">🚗</div>
+
+      <div class="nav-center">AI Car Price Predictor</div>
+
+      <div class="nav-right">
+        <a
+          href="https://github.com/DivyeshChavda77/Car_Price_Predictor"
+          target="_blank"
+          class="github-btn"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8a8 8 0 005.47 7.59c.4.07.55-.17.55-.38
+                0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87
+                2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+                0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
+                0 0 .67-.21 2.2.82a7.5 7.5 0 012-.27c.68 0 1.36.09 2 .27
+                1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                .51.56.82 1.27.82 2.15
+                0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                0 1.07-.01 1.93-.01 2.2
+                0 .21.15.46.55.38A8.001 8.001 0 0016 8c0-4.42-3.58-8-8-8z"
+            />
+          </svg>
+
+          GitHub Repo
+        </a>
+      </div>
+    </nav>
+
     <!-- Hero Section -->
 
     <section class="hero">
@@ -470,304 +582,3 @@
     </script>
   </body>
 </html>
-
-<!-- <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Car Price Predictor</title>
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
-      }
-
-      body {
-        background: #0f172a;
-        color: white;
-      }
-
-      .hero {
-        height: 40vh;
-        background:
-          linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-          url("https://images.unsplash.com/photo-1503376780353-7e6692767b70");
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-
-      .hero-content h1 {
-        font-size: 55px;
-        font-weight: 700;
-      }
-
-      .hero-content p {
-        font-size: 18px;
-        color: #d1d5db;
-      }
-
-      .main-container {
-        width: 90%;
-        max-width: 1300px;
-        margin: -70px auto 40px;
-      }
-
-      .dashboard {
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        gap: 25px;
-      }
-
-      .form-card,
-      .result-card {
-        background: #111827;
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      }
-
-      .form-card h2,
-      .result-card h2 {
-        margin-bottom: 25px;
-      }
-
-      .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-      }
-
-      .input-group {
-        display: flex;
-        flex-direction: column;
-      }
-
-      label {
-        margin-bottom: 8px;
-        color: #d1d5db;
-      }
-
-      input,
-      select {
-        padding: 14px;
-        border: none;
-        border-radius: 12px;
-        background: #1f2937;
-        color: white;
-        font-size: 14px;
-      }
-
-      input:focus,
-      select:focus {
-        outline: none;
-        border: 1px solid #3b82f6;
-      }
-
-      .predict-btn {
-        width: 100%;
-        margin-top: 25px;
-        padding: 15px;
-        border: none;
-        border-radius: 12px;
-        background: #ef4444;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-      }
-
-      .predict-btn:hover {
-        background: #dc2626;
-      }
-
-      .price-card {
-        text-align: center;
-        margin-top: 30px;
-      }
-
-      .price {
-        font-size: 42px;
-        font-weight: 700;
-        color: #22c55e;
-      }
-
-      .metric {
-        margin-top: 20px;
-        background: #1f2937;
-        padding: 15px;
-        border-radius: 12px;
-      }
-
-      .metric h3 {
-        margin-bottom: 8px;
-      }
-
-      .footer-info {
-        margin-top: 20px;
-        color: #9ca3af;
-        text-align: center;
-      }
-
-      @media (max-width: 900px) {
-        .dashboard {
-          grid-template-columns: 1fr;
-        }
-
-        .form-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .hero-content h1 {
-          font-size: 38px;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <section class="hero">
-      <div class="hero-content">
-        <h1>🚗 Car Price Predictor</h1>
-
-        <p>Predict Used Car Resale Value Using Machine Learning</p>
-      </div>
-    </section>
-
-    <div class="main-container">
-      <div class="dashboard">
-        <div class="form-card">
-          <h2>Vehicle Details</h2>
-
-          <form action="/predict" method="POST">
-            <div class="form-grid">
-              <div class="input-group">
-                <label>KM Driven</label>
-                <input type="number" name="km_driven" required />
-              </div>
-
-              <div class="input-group">
-                <label>Car Age</label>
-                <input type="number" name="car_age" required />
-              </div>
-
-              <div class="input-group">
-                <label>Fuel Type</label>
-                <select name="fuel">
-                  <option selected disabled>Select Fuel Type</option>
-                  <option>Petrol</option>
-                  <option>Diesel</option>
-                  <option>CNG</option>
-                  <option>LPG</option>
-                </select>
-              </div>
-
-              <div class="input-group">
-                <label>Transmission</label>
-                <select name="transmission">
-                  <option selected disabled>Select Transmission</option>
-                  <option>Manual</option>
-                  <option>Automatic</option>
-                </select>
-              </div>
-
-              <div class="input-group">
-                <label>Seller Type</label>
-                <select name="seller_type">
-                  <option selected disabled>Select Seller Type</option>
-                  <option>Individual</option>
-                  <option>Dealer</option>
-                  <option>Trustmark Dealer</option>
-                </select>
-              </div>
-
-              <div class="input-group">
-                <label>Owner</label>
-                <select name="owner">
-                  <option selected disabled>Select Owner</option>
-                  <option>First Owner</option>
-                  <option>Second Owner</option>
-                  <option>Third Owner</option>
-                  <option>Fourth & Above Owner</option>
-                  <option>Test Drive Car</option>
-                </select>
-              </div>
-
-              <div class="input-group">
-                <label>Brand</label>
-                <select name="brand">
-                  <option selected disabled>Select Car Brand</option>
-                  <option>Maruti</option>
-                  <option>Hyundai</option>
-                  <option>Honda</option>
-                  <option>Tata</option>
-                  <option>Mahindra</option>
-                  <option>Toyota</option>
-                  <option>Ford</option>
-                  <option>Renault</option>
-                  <option>Volkswagen</option>
-                  <option>Chevrolet</option>
-                  <option>Nissan</option>
-                  <option>Skoda</option>
-                  <option>Audi</option>
-                  <option>BMW</option>
-                  <option>Mercedes-Benz</option>
-                </select>
-              </div>
-            </div>
-
-            <button class="predict-btn">Predict Price</button>
-          </form>
-        </div>
-
-        <div class="result-card">
-          <h2>Prediction Result</h2>
-
-          <div class="price-card">
-            {% if results %}
-
-            <div class="price">₹ {{ results }}</div>
-
-            {% else %}
-
-            <div class="price">₹ --</div>
-
-            {% endif %}
-          </div>
-
-          <div class="metric">
-            <h3>Model</h3>
-            <p>CatBoost Regressor</p>
-          </div>
-
-          <div class="metric">
-            <h3>Accuracy</h3>
-            <p>R² Score: 0.81</p>
-          </div>
-
-          <div class="metric">
-            <h3>Features Used</h3>
-            <p>Brand, Fuel, KM Driven, Owner, Transmission, Car Age</p>
-          </div>
-
-          <div class="footer-info">
-            Built with Flask + CatBoost + Scikit-Learn
-          </div>
-        </div>
-      </div>
-    </div>
-  </body>
-</html> -->

@@ -9,7 +9,7 @@ def index():
     return render_template("home.html")
 
 @app.route("/predict", methods=["POST"])
-# @app.route("/predict", methods=["GET", "POST"])
+
 def predict_datapoint():
 
     try:
